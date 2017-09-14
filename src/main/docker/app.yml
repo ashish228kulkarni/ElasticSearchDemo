@@ -1,0 +1,17 @@
+version: '2'
+services:
+    elasticsearchdemo-app:
+        image: elasticsearchdemo
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://elasticsearchdemo-mysql:3306/elasticsearchdemo?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearchdemo-elasticsearch:9300
+    elasticsearchdemo-mysql:
+        extends:
+            file: mysql.yml
+            service: elasticsearchdemo-mysql
+    elasticsearchdemo-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: elasticsearchdemo-elasticsearch
